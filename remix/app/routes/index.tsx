@@ -11,7 +11,6 @@ export async function loader() {
   const invoiceLines = await db.invoiceLine.findMany();
   const mediaTypes = await db.mediaType.findMany();
   const playlists = await db.playlist.findMany();
-  const playlistTracks = await db.playlistTrack.findMany();
   const tracks = await db.track.findMany();
 
   return json({
@@ -24,7 +23,6 @@ export async function loader() {
     invoiceLines,
     mediaTypes,
     playlists,
-    playlistTracks,
     tracks,
   });
 }
