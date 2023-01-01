@@ -1,10 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using SQLiteBenchmark.Data;
+using SQLiteBenchmark.JsonNamingPolicies;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextPool<ChinookSqliteContext>(optionsBuilder =>
 {
     optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("ChinookSqliteContext"));
+});
+
+builder.Services.ConfigureHttpJsonOptions(static options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = new LeaveAsIsNamingPolicy();
 });
 
 var app = builder.Build();
@@ -47,7 +53,7 @@ app.MapGet("/", static async (ChinookSqliteContext db) => new
         {
             track.TrackId, track.Name, track.AlbumId, track.MediaTypeId, track.GenreId, track.Composer,
             track.Milliseconds, track.Bytes, track.UnitPrice
-        }).ToListAsync(),
+        }).ToListAsync()
     }
 );
 
