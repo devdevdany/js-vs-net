@@ -16,7 +16,7 @@ public partial class Invoice
     public long CustomerId { get; set; }
 
     [Column(TypeName = "DATETIME")]
-    public byte[] InvoiceDate { get; set; } = null!;
+    public DateTime InvoiceDate { get; set; }
 
     [Column(TypeName = "NVARCHAR(70)")]
     public string? BillingAddress { get; set; }
@@ -34,7 +34,7 @@ public partial class Invoice
     public string? BillingPostalCode { get; set; }
 
     [Column(TypeName = "NUMERIC(10,2)")]
-    public byte[] Total { get; set; } = null!;
+    public decimal Total { get; set; }
 
     [ForeignKey("CustomerId")]
     [InverseProperty("Invoices")]

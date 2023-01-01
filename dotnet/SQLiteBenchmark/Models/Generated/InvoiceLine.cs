@@ -19,7 +19,7 @@ public partial class InvoiceLine
     public long TrackId { get; set; }
 
     [Column(TypeName = "NUMERIC(10,2)")]
-    public byte[] UnitPrice { get; set; } = null!;
+    public decimal UnitPrice { get; set; }
 
     public long Quantity { get; set; }
 

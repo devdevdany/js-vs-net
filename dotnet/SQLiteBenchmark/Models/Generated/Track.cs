@@ -32,7 +32,7 @@ public partial class Track
     public long? Bytes { get; set; }
 
     [Column(TypeName = "NUMERIC(10,2)")]
-    public byte[] UnitPrice { get; set; } = null!;
+    public decimal UnitPrice { get; set; }
 
     [ForeignKey("AlbumId")]
     [InverseProperty("Tracks")]
