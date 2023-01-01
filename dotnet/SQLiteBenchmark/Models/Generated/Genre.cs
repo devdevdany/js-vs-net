@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SQLiteBenchmark.Models;
 
 [Table("Genre")]
-public class Genre
+public partial class Genre
 {
     [Key]
     public long GenreId { get; set; }

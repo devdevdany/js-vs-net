@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +10,7 @@ namespace SQLiteBenchmark.Models;
 [Index("AlbumId", Name = "IFK_TrackAlbumId")]
 [Index("GenreId", Name = "IFK_TrackGenreId")]
 [Index("MediaTypeId", Name = "IFK_TrackMediaTypeId")]
-public class Track
+public partial class Track
 {
     [Key]
     public long TrackId { get; set; }

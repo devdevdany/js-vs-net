@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using SQLiteBenchmark.Models;
 
 namespace SQLiteBenchmark.Data;
@@ -35,10 +37,7 @@ public partial class ChinookSqliteContext : DbContext
     public virtual DbSet<Track> Tracks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code
-// You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration
-// - see https: //go.microsoft.com/fwlink/?linkid=2131148.
-// For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlite("Data Source=Chinook_Sqlite.sqlite");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,13 +49,25 @@ public partial class ChinookSqliteContext : DbContext
             entity.HasOne(d => d.Artist).WithMany(p => p.Albums).OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<Artist>(entity => { entity.Property(e => e.ArtistId).ValueGeneratedNever(); });
+        modelBuilder.Entity<Artist>(entity =>
+        {
+            entity.Property(e => e.ArtistId).ValueGeneratedNever();
+        });
 
-        modelBuilder.Entity<Customer>(entity => { entity.Property(e => e.CustomerId).ValueGeneratedNever(); });
+        modelBuilder.Entity<Customer>(entity =>
+        {
+            entity.Property(e => e.CustomerId).ValueGeneratedNever();
+        });
 
-        modelBuilder.Entity<Employee>(entity => { entity.Property(e => e.EmployeeId).ValueGeneratedNever(); });
+        modelBuilder.Entity<Employee>(entity =>
+        {
+            entity.Property(e => e.EmployeeId).ValueGeneratedNever();
+        });
 
-        modelBuilder.Entity<Genre>(entity => { entity.Property(e => e.GenreId).ValueGeneratedNever(); });
+        modelBuilder.Entity<Genre>(entity =>
+        {
+            entity.Property(e => e.GenreId).ValueGeneratedNever();
+        });
 
         modelBuilder.Entity<Invoice>(entity =>
         {
@@ -74,7 +85,10 @@ public partial class ChinookSqliteContext : DbContext
             entity.HasOne(d => d.Track).WithMany(p => p.InvoiceLines).OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<MediaType>(entity => { entity.Property(e => e.MediaTypeId).ValueGeneratedNever(); });
+        modelBuilder.Entity<MediaType>(entity =>
+        {
+            entity.Property(e => e.MediaTypeId).ValueGeneratedNever();
+        });
 
         modelBuilder.Entity<Playlist>(entity =>
         {

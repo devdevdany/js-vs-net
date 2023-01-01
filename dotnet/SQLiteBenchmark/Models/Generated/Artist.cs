@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SQLiteBenchmark.Models;
 
 [Table("Artist")]
-public class Artist
+public partial class Artist
 {
     [Key]
     public long ArtistId { get; set; }

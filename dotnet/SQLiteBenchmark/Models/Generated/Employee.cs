@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +8,7 @@ namespace SQLiteBenchmark.Models;
 
 [Table("Employee")]
 [Index("ReportsTo", Name = "IFK_EmployeeReportsTo")]
-public class Employee
+public partial class Employee
 {
     [Key]
     public long EmployeeId { get; set; }
