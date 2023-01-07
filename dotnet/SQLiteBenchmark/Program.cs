@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SQLiteBenchmark.Data;
+using SQLiteBenchmark.JsonConverters;
 using SQLiteBenchmark.JsonNamingPolicies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +9,11 @@ builder.Services.AddDbContextPool<ChinookSqliteContext>(optionsBuilder =>
     optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("ChinookSqliteContext"));
 });
 
-builder.Services.ConfigureHttpJsonOptions(static options =>
+var decimalConverter = new DecimalJsonConverter();
+builder.Services.ConfigureHttpJsonOptions(options =>
 {
-    options.SerializerOptions.PropertyNamingPolicy = new LeaveAsIsNamingPolicy();
+    options.SerializerOptions.PropertyNamingPolicy = new LeaveUnchangedNamingPolicy();
+    options.SerializerOptions.Converters.Add(decimalConverter);
 });
 
 var app = builder.Build();
