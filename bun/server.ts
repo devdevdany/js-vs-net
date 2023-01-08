@@ -71,7 +71,7 @@ const tracksQuery = db.prepare(`select TrackId,
 
 const datePattern = /(?<date>\d{4}-\d{2}-\d{2})\s(?<time>\d{2}:\d{2}:\d{2})/;
 
-export default {
+Bun.serve({
   port: 8888,
   fetch() {
     return new Response(JSON.stringify({
@@ -100,4 +100,4 @@ export default {
   error(error: Error) {
     return new Response(`Uh oh!! ${error.toString()}`, {status: 500});
   },
-};
+});
