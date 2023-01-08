@@ -86,11 +86,11 @@ Bun.serve({
       playlists: playlistsQuery.all(),
       tracks: tracksQuery.all(),
     }, (key: string, value: unknown) => {
-      if (["Total", "UnitPrice"].includes(key) && typeof value === "number") {
+      if ((key === "Total" || key === "UnitPrice") && typeof value === "number") {
         return String(value);
       }
 
-      if (["BirthDate", "HireDate", "InvoiceDate"].includes(key) && typeof value === "string") {
+      if ((key === "BirthDate" || key === "HireDate" || key === "InvoiceDate") && typeof value === "string") {
         return value.replace(datePattern, "$<date>T$<time>.000Z");
       }
 
