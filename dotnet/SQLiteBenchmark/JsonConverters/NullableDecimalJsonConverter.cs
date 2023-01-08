@@ -4,9 +4,11 @@ using System.Text.Json.Serialization;
 
 namespace SQLiteBenchmark.JsonConverters;
 
-internal sealed class DateTimeJsonConverter : JsonConverter<DateTime>
+internal sealed class NullableDecimalJsonConverter : JsonConverter<decimal?>
 {
-    public override DateTime Read(
+    public override bool HandleNull => true;
+
+    public override decimal? Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options)
@@ -23,26 +25,25 @@ internal sealed class DateTimeJsonConverter : JsonConverter<DateTime>
 
         if (stringValue is null)
         {
-            throw new JsonException();
+            return null;
         }
 
-        var parseResult = DateTime.TryParseExact(stringValue, IsoDateTimeFormat.FormatString,
-            CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDateTime);
+        var parseResult = decimal.TryParse(stringValue, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint,
+            CultureInfo.InvariantCulture, out decimal parsedDecimal);
         if (!parseResult)
         {
             throw new JsonException();
         }
 
-        return parsedDateTime;
+        return parsedDecimal;
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        DateTime value,
+        decimal? value,
         JsonSerializerOptions options)
     {
-        var asUtc = DateTime.SpecifyKind(value, DateTimeKind.Utc);
-        var asString = asUtc.ToString(IsoDateTimeFormat.FormatString, CultureInfo.InvariantCulture);
+        var asString = value?.ToString("G", CultureInfo.InvariantCulture);
         writer.WriteStringValue(asString);
     }
 }

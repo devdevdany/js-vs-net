@@ -9,11 +9,17 @@ builder.Services.AddDbContextPool<ChinookSqliteContext>(optionsBuilder =>
     optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("ChinookSqliteContext"));
 });
 
-var decimalConverter = new DecimalJsonConverter();
+var decimalJsonConverter = new DecimalJsonConverter();
+var nullableDecimalJsonConverter = new NullableDecimalJsonConverter();
+var dateTimeJsonConverter = new DateTimeJsonConverter();
+var nullableDateTimeJsonConverter = new NullableDateTimeJsonConverter();
 builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.PropertyNamingPolicy = new LeaveUnchangedNamingPolicy();
-    options.SerializerOptions.Converters.Add(decimalConverter);
+    options.SerializerOptions.Converters.Add(decimalJsonConverter);
+    options.SerializerOptions.Converters.Add(nullableDecimalJsonConverter);
+    options.SerializerOptions.Converters.Add(dateTimeJsonConverter);
+    options.SerializerOptions.Converters.Add(nullableDateTimeJsonConverter);
 });
 
 var app = builder.Build();
